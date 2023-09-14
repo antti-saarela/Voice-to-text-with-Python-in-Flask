@@ -153,3 +153,15 @@ function createDownloadLink(blob,encoding) {
 function __log(e, data) {
 	log.innerHTML += "\n" + e + " " + (data || '');
 }
+
+window.onload = function() {  
+    var clearButton = document.getElementById('clearButton');  
+    if (clearButton) {  // Check if the button exists  
+        clearButton.addEventListener('click', function() {  
+            var speechText = document.getElementById('speechText');  
+            if (speechText) {  // Check if the speechText element exists  
+                speechText.textContent = '';  
+            }  
+        });  
+    }  
+};  

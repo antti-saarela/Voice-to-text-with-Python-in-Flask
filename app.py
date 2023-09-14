@@ -51,6 +51,9 @@ WAIT_SECONDS = 10
 #             fname = fname2
 #     return fname
 
+transcriptions = []
+
+conversations = []
 
 def conversation_transcriber_recognition_canceled_cb(evt: speechsdk.SessionEventArgs):
     print('Canceled event')
@@ -58,10 +61,6 @@ def conversation_transcriber_recognition_canceled_cb(evt: speechsdk.SessionEvent
 
 def conversation_transcriber_session_stopped_cb(evt: speechsdk.SessionEventArgs):
     print('SessionStopped event')
-
-
-conversations = []
-
 
 def conversation_transcriber_transcribed_cb(evt: speechsdk.SpeechRecognitionEventArgs):
     print('TRANSCRIBED:')
@@ -77,9 +76,6 @@ def conversation_transcriber_transcribed_cb(evt: speechsdk.SpeechRecognitionEven
 
 def conversation_transcriber_session_started_cb(evt: speechsdk.SessionEventArgs):
     print('SessionStarted event')
-
-
-transcriptions = []
 
 
 def transcribtion_transcribed_cb(evt: speechsdk.SpeechRecognitionEventArgs):
@@ -147,12 +143,10 @@ def index():
             return redirect(request.url)
 
         if file:
+
+            transcriptions.clear()
+            conversations.clear()
             if use_azure:
-                # recognizer = sr.Recognizer()
-                audioFile = sr.AudioFile(file)
-                # with audioFile as source:
-                #    data = recognizer.record(source)
-                # Set up the Azure Speech Service
 
                 # Ensure the uploads directory exists
                 os.makedirs('uploads', exist_ok=True)
@@ -298,7 +292,9 @@ def index():
                 f.write(str(transcript))
                 f.write("\n")
 
-    return render_template('index.html', transcript=transcript)
+    res = render_template('index.html', transcript=transcript)
+    
+    return res
 
 
 if __name__ == "__main__":

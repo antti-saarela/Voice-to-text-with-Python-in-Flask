@@ -1,0 +1,5 @@
+recordvoice_venv/*
+*.log
+uploads/*
+__pycache__/*
+.env
